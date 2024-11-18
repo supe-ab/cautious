@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.assignment.onboarding.dao.ItemRepository;
+import com.assignment.onboarding.mapper.ItemMapper;
 import com.assignment.onboarding.service.ItemService;
 import com.assignment.onboarding.vo.ItemVO;
 
@@ -18,10 +20,11 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/items")
+@RequiredArgsConstructor
 public class ItemController {
 	
-	@Autowired
-	private  ItemService itemService;
+	
+	private final ItemService itemService;
 	
 	@PostMapping
 	public ResponseEntity<ItemVO> createItem(@Valid @RequestBody ItemVO itemVO){

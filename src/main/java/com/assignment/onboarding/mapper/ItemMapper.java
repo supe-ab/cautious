@@ -1,27 +1,16 @@
 package com.assignment.onboarding.mapper;
 
-import org.springframework.web.bind.annotation.Mapping;
-
-import com.assignment.onboarding.bo.ItemBO;
+import org.mapstruct.Mapper;
+import com.assignment.onboarding.dto.ItemDTO;
 import com.assignment.onboarding.entity.Item;
-import com.assignment.onboarding.eo.ItemEO;
 import com.assignment.onboarding.vo.ItemVO;
-
-
 
 @Mapper(componentModel = "spring")
 public interface ItemMapper {
 
-    // VO <-> BO mappings
-    ItemBO voToBO(ItemVO vo);
-    ItemVO boToVO(ItemBO bo);
+    ItemDTO voToDTO(ItemVO vo);
+    ItemVO dtoToVO(ItemDTO dto);
 
-    // BO <-> EO mappings
-    ItemEO boToEO(ItemBO bo);
-    ItemBO eoToBO(ItemEO eo);
-
-    // EO <-> Entity mappings
-    ItemEO entityToEO(Item entity);
-    
-    Item eoToEntity(ItemEO eo);
+    ItemDTO entityToDTO(Item entity);
+    Item dtoToEntity(ItemDTO dto);
 }
