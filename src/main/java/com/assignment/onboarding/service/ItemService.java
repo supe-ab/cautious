@@ -11,6 +11,8 @@ public interface ItemService {
 
 	ItemVO createItem(ItemVO itemVO);      
    
-    List<ItemVO> getAllItems();             
+    List<ItemVO> getAllItems();
+
+	void healthCheck();             
 
 }

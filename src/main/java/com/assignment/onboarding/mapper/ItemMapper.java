@@ -7,7 +7,6 @@ import com.assignment.onboarding.vo.ItemVO;
 
 @Mapper(componentModel = "spring")
 public interface ItemMapper {
-
     ItemDTO voToDTO(ItemVO vo);
     ItemVO dtoToVO(ItemDTO dto);
 

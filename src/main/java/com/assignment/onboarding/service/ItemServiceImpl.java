@@ -6,9 +6,8 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.assignment.onboarding.dao.ItemRepository;
+import com.assignment.onboarding.bo.ItemBO;
 import com.assignment.onboarding.dto.ItemDTO;
-import com.assignment.onboarding.entity.Item;
 import com.assignment.onboarding.mapper.ItemMapper;
 import com.assignment.onboarding.vo.ItemVO;
 
@@ -17,25 +16,25 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
-
-    private final ItemRepository itemRepository;
     private final ItemMapper itemMapper;
+    private final ItemBO itemBO;
 
     @Transactional
     public ItemVO createItem(ItemVO itemVO) {
-        ItemDTO itemDTO = itemMapper.voToDTO(itemVO);
-        Item item = itemMapper.dtoToEntity(itemDTO);
-        Item savedItem = itemRepository.save(item);
-        ItemDTO savedDTO = itemMapper.entityToDTO(savedItem);
-        return itemMapper.dtoToVO(savedDTO);
+        ItemDTO itemDTO = itemMapper.voToDTO(itemVO); // VO -> DTO
+        ItemDTO createdDTO = itemBO.createItem(itemDTO); // Call BO
+        return itemMapper.dtoToVO(createdDTO); // DTO -> VO
     }
 
     @Transactional(readOnly = true)
     public List<ItemVO> getAllItems() {
-        return itemRepository.findAll()
+        return itemBO.getAllItems() // Call BO
                 .stream()
-                .map(itemMapper::entityToDTO)
-                .map(itemMapper::dtoToVO)
+                .map(itemMapper::dtoToVO) // DTO -> VO
                 .collect(Collectors.toList());
+    }
+    @Transactional(readOnly = true)
+    public void healthCheck() {
+    	itemBO.healthCheck();
     }
 }

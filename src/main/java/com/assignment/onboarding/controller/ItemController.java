@@ -22,19 +22,29 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/items")
 @RequiredArgsConstructor
 public class ItemController {
-	
-	
-	private final ItemService itemService;
-	
-	@PostMapping
-	public ResponseEntity<ItemVO> createItem(@Valid @RequestBody ItemVO itemVO){
-		return ResponseEntity.ok(itemService.createItem(itemVO));
-	}
-	
-	@GetMapping
-	public ResponseEntity<List<ItemVO>> getAllItems(){
-		return ResponseEntity.ok(itemService.getAllItems());
-	}
+    private final ItemService itemService;
+
+    @PostMapping
+    public ResponseEntity<ItemVO> createItem(@Valid @RequestBody ItemVO itemVO) {
+        return ResponseEntity.ok(itemService.createItem(itemVO));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ItemVO>> getAllItems() {
+        return ResponseEntity.ok(itemService.getAllItems());
+    }
+    
+    @GetMapping("/health")
+    public ResponseEntity<String> healthCheck(){
+    	try {
+    		itemService.healthCheck();
+    		return ResponseEntity.ok("Health check passed. Downstream systems are working fine.");
+    		
+    	}
+    	catch(Exception e) {
+    		return ResponseEntity.status(500).body("Health check failed: "+e.getMessage());
+    	}
+    }
 }
 
 	
