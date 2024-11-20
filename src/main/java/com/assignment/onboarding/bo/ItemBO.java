@@ -25,7 +25,7 @@ public class ItemBO {
         return itemEO.getAllItems(); // Call EO
     }
 
-	public void healthCheck() {
+	public void healthCheck() throws Exception {
 		itemEO.healthCheck();
 		
 		

@@ -34,7 +34,7 @@ public class ItemServiceImpl implements ItemService {
                 .collect(Collectors.toList());
     }
     @Transactional(readOnly = true)
-    public void healthCheck() {
+    public void healthCheck() throws Exception {
     	itemBO.healthCheck();
     }
 }

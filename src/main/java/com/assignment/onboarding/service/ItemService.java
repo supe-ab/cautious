@@ -13,6 +13,6 @@ public interface ItemService {
    
     List<ItemVO> getAllItems();
 
-	void healthCheck();             
+	void healthCheck() throws Exception;             
 
 }

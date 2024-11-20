@@ -3,6 +3,7 @@ package com.assignment.onboarding.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,17 +35,22 @@ public class ItemController {
         return ResponseEntity.ok(itemService.getAllItems());
     }
     
-    @GetMapping("/health")
-    public ResponseEntity<String> healthCheck(){
-    	try {
-    		itemService.healthCheck();
-    		return ResponseEntity.ok("Health check passed. Downstream systems are working fine.");
-    		
-    	}
-    	catch(Exception e) {
-    		return ResponseEntity.status(500).body("Health check failed: "+e.getMessage());
-    	}
+    @GetMapping("/health-check")
+    public ResponseEntity<String> healthCheck() {
+        try {
+            itemService.healthCheck(); 
+            return ResponseEntity.ok("Health Check passed. Downstream system is healthy");
+        } catch (ArithmeticException ex) {
+            
+            return ResponseEntity.ok("Health Check passed. Downstream system is healthy");
+        } catch (Exception ex) {
+          
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Health Check failed: " + ex.getMessage());
+        }
     }
+
+
 }
 
 	

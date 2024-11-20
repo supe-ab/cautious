@@ -20,28 +20,37 @@ public class ItemEO {
     private final ItemMapper itemMapper;
 
     public ItemDTO createItem(ItemDTO itemDTO) {
-        Item entity = itemMapper.dtoToEntity(itemDTO); // DTO -> Entity
-        Item savedEntity = itemRepository.save(entity); // Save to DB
-        return itemMapper.entityToDTO(savedEntity); // Entity -> DTO
+        Item entity = itemMapper.dtoToEntity(itemDTO); 
+        Item savedEntity = itemRepository.save(entity); 
+        return itemMapper.entityToDTO(savedEntity); 
     }
 
     public List<ItemDTO> getAllItems() {
         return itemRepository.findAll()
                 .stream()
-                .map(itemMapper::entityToDTO) // Entity -> DTO
+                .map(itemMapper::entityToDTO) 
                 .collect(Collectors.toList());
     }
 
-	public void healthCheck() {
-		try {
-			itemRepository.findById(0L);
-		}catch(Exception e) {
-			if(e instanceof DataAccessException ) {
-				throw new IllegalStateException("Downstream system is unhealthy");
-			}
-			throw e;
-		}
-	}
+    public void healthCheck() throws Exception {
+        try {
+            
+            itemRepository.findById(0L);  
+
+           
+            throw new ArithmeticException("HealthCheck passed: Downstream system is healthy");
+
+        } catch (ArithmeticException e) {
+            
+            throw new ArithmeticException(e.getMessage()); 
+        } catch (Exception e) {
+            
+            throw new Exception("HealthCheck failed: " + e.getMessage());
+        }
+    }
+
+
+
 		
 		
 		
