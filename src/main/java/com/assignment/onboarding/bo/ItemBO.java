@@ -16,13 +16,13 @@ public class ItemBO {
     private final ItemEO itemEO;
 
     public ItemDTO createItem(ItemDTO itemDTO) {
-        // Add any business rules or logic here
-        return itemEO.createItem(itemDTO); // Pass to EO
+       
+        return itemEO.createItem(itemDTO); 
     }
 
     public List<ItemDTO> getAllItems() {
-        // Any additional processing on retrieved items can go here
-        return itemEO.getAllItems(); // Call EO
+        
+        return itemEO.getAllItems(); 
     }
 
 	public void healthCheck() throws Exception {
