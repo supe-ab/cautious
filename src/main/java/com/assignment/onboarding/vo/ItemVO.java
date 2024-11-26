@@ -10,7 +10,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ItemVO {
-    private Long id;
+    
+
+	private Long id;
     
     @NotNull(message = "Name cannot be null")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
